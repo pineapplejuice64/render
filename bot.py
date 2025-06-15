@@ -63,35 +63,17 @@ while True:
 
         for cookie in cookies:
             driver.add_cookie(cookie)
-        print(driver.get_cookies())
+       
         driver.refresh()  # reload current page with cookies set
         time.sleep(3)
 
-        # Go to the server page directly
-        driver.get("https://lemehost.com/server/3057073/free_plan")
-
-        print("Current URL:", driver.current_url)
-
-        
-        wait = WebDriverWait(driver, 10)  # <== Add this line here
-
         
 
-        buttons = driver.find_elements(By.XPATH, "//a[contains(@class, 'btn-primary') and contains(text(), 'Extend time')]")
-        print(f"Found {len(buttons)} Extend time buttons")
-        for btn in buttons:
-            print(btn.get_attribute('outerHTML'))
+        print("✅ Logged in at", time.strftime('%Y-%m-%d %H:%M:%S'))
 
-
-
-        # Click the "Extend time" button
-        extend_button = wait.until(
-            EC.element_to_be_clickable(
-                (By.XPATH, "//a[contains(@class, 'btn-primary') and contains(., 'Extend time')]")
-            )
-        )
-        extend_button.click()
-        print("✅ Clicked Extend Time at", time.strftime('%Y-%m-%d %H:%M:%S'))
+        
+    
+        
     except Exception as e:
         print("❌ Error:", e)
 
@@ -99,4 +81,4 @@ while True:
         driver.quit()
 
     # Wait 20 minutes before next run
-    time.sleep(20 * 60)
+    time.sleep(10 * 60)
