@@ -44,19 +44,19 @@ while True:
             {
                 'name': 'cf_clearance',
                 'value': os.environ.get("LEME_CF_CLEARANCE"),
-                'domain': 'lemehost.com',
+                'domain': '.lemehost.com',
                 'path': '/',
             },
             {
                 'name': 'advanced-frontend',
                 'value': os.environ.get("LEME_ADVANCED_FRONTEND"),
-                'domain': 'lemehost.com',
+                'domain': '.lemehost.com',
                 'path': '/',
             },
             {
                 'name': '_identity-frontend',
                 'value': os.environ.get("LEME_IDENTITY_FRONTEND"),
-                'domain': 'lemehost.com',
+                'domain': '.lemehost.com',
                 'path': '/',
             },
         ]
@@ -64,7 +64,8 @@ while True:
         for cookie in cookies:
             driver.add_cookie(cookie)
         print(driver.get_cookies())
-
+        driver.refresh()  # reload current page with cookies set
+        time.sleep(3)
 
         # Go to the server page directly
         driver.get("https://lemehost.com/server/3057073/free_plan")
