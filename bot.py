@@ -32,6 +32,9 @@ while True:
     try:
         # Open initial page to set cookies
         driver.get("https://lemehost.com/")
+
+        wait = WebDriverWait(driver, 10)  # <== Add this line here
+        
         time.sleep(2)
 
         # Inject all required cookies
