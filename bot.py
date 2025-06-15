@@ -64,7 +64,11 @@ while True:
             f.write(driver.page_source)
 
         # Click the "Extend time" button
-        extend_button = driver.find_element(By.LINK_TEXT, "Extend time")
+        extend_button = wait.until(
+            EC.element_to_be_clickable(
+                (By.XPATH, "//a[contains(@class, 'btn-primary') and contains(., 'Extend time')]")
+            )
+        )
         extend_button.click()
         print("✅ Clicked Extend Time at", time.strftime('%Y-%m-%d %H:%M:%S'))
     except Exception as e:
