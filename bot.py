@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -59,10 +61,9 @@ while True:
         wait = WebDriverWait(driver, 10)
         
         # Click the "Extend time" button
-        extend_button = driver.find_element(By.LINK_TEXT, "Extend time")
+        extend_button = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Extend time")))
         extend_button.click()
         print("✅ Clicked Extend Time at", time.strftime('%Y-%m-%d %H:%M:%S'))
-
     except Exception as e:
         print("❌ Error:", e)
 
