@@ -67,12 +67,12 @@ while True:
         driver.refresh()  # reload current page with cookies set
         time.sleep(3)
 
-        print("✅ Logged in at", time.strftime('%Y-%m-%d %H:%M:%S'))
+        
 
         driver.get("https://lemehost.com/server/3061220/free_plan")
         time.sleep(2)
 
-        print("🔗 Navigated to:", driver.current_url)
+        
 
 
         wait = WebDriverWait(driver, 10)
@@ -98,4 +98,4 @@ while True:
         driver.quit()
 
     # Wait 20 minutes before next run
-    time.sleep(10 * 60)
+    time.sleep(29 * 60)
