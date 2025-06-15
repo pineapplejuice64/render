@@ -29,9 +29,11 @@ RUN apt-get update && apt-get install -y \
 ENV CHROME_VERSION=137.0.7151.70
 
 # Download Chrome for Testing and unzip it
-RUN wget -q https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip -O /tmp/chrome-linux64.zip && \
-    unzip /tmp/chrome-linux64.zip -d /opt/ && \
-    rm /tmp/chrome-linux64.zip
+RUN wget -q https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip -O /tmp/chromedriver-linux64.zip && \
+    unzip -j /tmp/chromedriver-linux64.zip -d /usr/local/bin/ && \
+    rm /tmp/chromedriver-linux64.zip && \
+    chmod +x /usr/local/bin/chromedriver
+
 
 # Download matching Chromedriver and unzip it to /usr/local/bin
 RUN wget -q https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip -O /tmp/chromedriver-linux64.zip && \
