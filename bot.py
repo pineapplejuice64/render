@@ -60,6 +60,8 @@ while True:
         driver.get("https://lemehost.com/server/3057073/free_plan")
         wait = WebDriverWait(driver, 10)
 
+        
+
         with open("page_source.html", "w", encoding="utf-8") as f:
             f.write(driver.page_source)
 
