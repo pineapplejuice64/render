@@ -67,15 +67,28 @@ while True:
         driver.refresh()  # reload current page with cookies set
         time.sleep(3)
 
+        print("✅ Logged in at", time.strftime('%Y-%m-%d %H:%M:%S'))
 
         driver.get("https://lemehost.com/server/3061220/free_plan")
         time.sleep(2)
 
         print("🔗 Navigated to:", driver.current_url)
 
-        print("✅ Logged in at", time.strftime('%Y-%m-%d %H:%M:%S'))
+
+        wait = WebDriverWait(driver, 10)
 
         
+        
+
+        try:
+            extend_button = wait.until(EC.element_to_be_clickable(
+            (By.XPATH, "//a[contains(@class, 'btn-primary') and contains(., 'Extend time')]")
+            ))
+            extend_button.click()
+            print("✅ Clicked 'Extend time' at", time.strftime('%Y-%m-%d %H:%M:%S'))
+
+        except Exception as e:
+            print("⚠️ Could not find or click 'Extend time' button:", e)  
     
         
     except Exception as e:
