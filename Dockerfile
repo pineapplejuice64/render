@@ -34,12 +34,13 @@ RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >
 RUN apt-get update && apt-get install -y google-chrome-stable
 
 # Install ChromeDriver (match your Chrome version!)
-RUN CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+') && \
+RUN CHROME_VERSION=$(google-chrome --version | grep -oP '\d+') && \
     CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION") && \
     wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" && \
     unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
     rm /tmp/chromedriver.zip && \
     chmod +x /usr/local/bin/chromedriver
+
 
 # Copy your bot code and requirements
 COPY . /app
