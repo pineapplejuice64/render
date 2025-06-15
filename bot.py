@@ -16,7 +16,7 @@ while True:
 
     service = Service("/usr/local/bin/chromedriver")
 
-driver = webdriver.Chrome(service=service, options=chrome_options)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
         # Open initial page to set cookies
