@@ -1,56 +1,49 @@
+# Use official Python slim image
 FROM python:3.12-slim
 
-# Install dependencies
+# Install dependencies for Chrome + Selenium
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     curl \
     gnupg \
+    ca-certificates \
     fonts-liberation \
     libnss3 \
-    libgconf-2-4 \
     libx11-xcb1 \
     libxcomposite1 \
-    libxcursor1 \
     libxdamage1 \
-    libxi6 \
-    libxtst6 \
     libxrandr2 \
     libasound2 \
-    libatk-bridge2.0-0 \
     libatk1.0-0 \
+    libatk-bridge2.0-0 \
     libcups2 \
     libdbus-1-3 \
-    libxss1 \
-    libxkbcommon0 \
+    libdrm2 \
     libgbm1 \
-    libpango1.0-0 \
-    libpangocairo-1.0-0 \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+    libgtk-3-0 \
+    libxshmfence1 \
+    --no-install-recommends
 
-# Install Chrome
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+# Install Chrome stable from Google repo
+RUN curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux-signing-keyring.gpg
+RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux-signing-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update && apt-get install -y google-chrome-stable
 
-
-# Install ChromeDriver (match your Chrome version!)
-RUN CHROME_VERSION=$(google-chrome --version | awk '{print $3}' | cut -d '.' -f 1) && \
-    echo "Chrome major version: $CHROME_VERSION" && \
-    CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
-
+# Install latest Chromedriver to match Chrome
+RUN CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE") && \
     echo "Chromedriver version: $CHROMEDRIVER_VERSION" && \
     wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" && \
-    unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
-    rm /tmp/chromedriver.zip && \
-    chmod +x /usr/local/bin/chromedriver
+    unzip /tmp/chromedriver.zip -d /usr/local/bin/ && rm /tmp/chromedriver.zip && chmod +x /usr/local/bin/chromedriver
 
-
-
-# Copy your bot code and requirements
-COPY . /app
+# Set working directory
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+# Copy your bot code
+COPY bot.py .
 
+# Install Python dependencies (make sure requirements.txt exists or install selenium directly)
+RUN pip install --no-cache-dir selenium
+
+# Run your bot script
 CMD ["python", "bot.py"]
