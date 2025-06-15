@@ -67,7 +67,11 @@ while True:
         driver.refresh()  # reload current page with cookies set
         time.sleep(3)
 
-        
+
+        driver.get("https://lemehost.com/server/3061220/free_plan")
+        time.sleep(2)
+
+        print("🔗 Navigated to:", driver.current_url)
 
         print("✅ Logged in at", time.strftime('%Y-%m-%d %H:%M:%S'))
 
