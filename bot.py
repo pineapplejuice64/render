@@ -17,7 +17,7 @@ while True:
     chrome_options = Options()
     
    
-    chrome_options.add_argument("--headless")
+   # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.binary_location = "/usr/bin/google-chrome"
@@ -58,7 +58,8 @@ while True:
 
         # Go to the server page directly
         driver.get("https://lemehost.com/server/3057073/free_plan")
-        wait = WebDriverWait(driver, 10)
+        wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn-primary")))
+
 
         
 
