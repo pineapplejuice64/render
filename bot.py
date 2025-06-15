@@ -33,7 +33,9 @@ while True:
         # Open initial page to set cookies
         driver.get("https://lemehost.com/")
 
-        wait = WebDriverWait(driver, 10)  # <== Add this line here
+        
+
+        
         
         time.sleep(2)
 
@@ -61,17 +63,24 @@ while True:
 
         for cookie in cookies:
             driver.add_cookie(cookie)
+        print(driver.get_cookies())
+
 
         # Go to the server page directly
         driver.get("https://lemehost.com/server/3057073/free_plan")
-        wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn-primary")))
 
+        print("Current URL:", driver.current_url)
+
+        
+        wait = WebDriverWait(driver, 10)  # <== Add this line here
 
         
 
-        print("----- PAGE SOURCE START -----")
-        print(driver.page_source)
-        print("----- PAGE SOURCE END -----")
+        buttons = driver.find_elements(By.XPATH, "//a[contains(@class, 'btn-primary') and contains(text(), 'Extend time')]")
+        print(f"Found {len(buttons)} Extend time buttons")
+        for btn in buttons:
+            print(btn.get_attribute('outerHTML'))
+
 
 
         # Click the "Extend time" button
