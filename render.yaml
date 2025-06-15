@@ -1,0 +1,17 @@
+services:
+  - type: worker
+    name: lemehost-auto-extend
+    runtime: python
+    buildCommand: |
+      apt-get update && apt-get install -y wget unzip xvfb libxi6 libgconf-2-4 libnss3 libasound2 libgbm1 libxss1 fonts-liberation libappindicator3-1 libatk-bridge2.0-0 libgtk-3-0
+      wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      apt install -y ./google-chrome-stable_current_amd64.deb
+      pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+  - key: LEME_CF_CLEARANCE
+    sync: false
+  - key: LEME_ADVANCED_FRONTEND
+    sync: false
+  - key: LEME_IDENTITY_FRONTEND
+    sync: false
