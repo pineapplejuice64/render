@@ -4,6 +4,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import time
 import os
+import sys
+sys.stdout.reconfigure(line_buffering=True)
+
+print("🚀 Bot started", flush=True)
 
 # Run every 20 minutes forever
 while True:
