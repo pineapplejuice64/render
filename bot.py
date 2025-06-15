@@ -59,9 +59,12 @@ while True:
         # Go to the server page directly
         driver.get("https://lemehost.com/server/3057073/free_plan")
         wait = WebDriverWait(driver, 10)
-        
+
+        with open("page_source.html", "w", encoding="utf-8") as f:
+            f.write(driver.page_source)
+
         # Click the "Extend time" button
-        extend_button = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Extend time")))
+        extend_button = driver.find_element(By.LINK_TEXT, "Extend time")
         extend_button.click()
         print("✅ Clicked Extend Time at", time.strftime('%Y-%m-%d %H:%M:%S'))
     except Exception as e:
