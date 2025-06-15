@@ -8,7 +8,7 @@ import os
 # Run every 20 minutes forever
 while True:
     chrome_options = Options()
-    chrome_options.binary_location = "/opt/chrome-linux64/chrome"
+    # chrome_options.binary_location = "/opt/chrome-linux64/chrome"
    
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
