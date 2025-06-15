@@ -62,8 +62,10 @@ while True:
 
         
 
-        with open("page_source.html", "w", encoding="utf-8") as f:
-            f.write(driver.page_source)
+        print("----- PAGE SOURCE START -----")
+        print(driver.page_source)
+        print("----- PAGE SOURCE END -----")
+
 
         # Click the "Extend time" button
         extend_button = wait.until(
